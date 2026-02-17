@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Level Up - Digital Media Strategy</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState } = React;
+    const logoSrc = "data:image/avif;base64,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";
+    const lozPhoto = "image2.png";
+
+    function OneLevelUpSite() {
+      const [openFaq, setOpenFaq] = useState(false);
+      const [menuOpen, setMenuOpen] = useState(false);
+
+      const scrollToSection = (id) => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      return (
+        <div className="min-h-screen bg-[#1F253D] text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
+
+          {/* HEADER */}
+          <header className="sticky top-0 z-50 bg-[#1F253D]/95 backdrop-blur-sm border-b border-white/5">
+            <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+              {/* Logo */}
+              <div className="flex items-center flex-shrink-0">
+                <img src={logoSrc} alt="One Level Up" className="h-20 md:h-24 w-auto" />
+              </div>
+
+              {/* Desktop Nav */}
+              <nav className="hidden lg:flex items-center space-x-5 text-xs font-medium whitespace-nowrap flex-1 justify-center">
+                <button onClick={() => scrollToSection('what-we-solve')} className="hover:text-white transition-colors text-white/70">What We Solve</button>
+                <button onClick={() => scrollToSection('services')} className="hover:text-white transition-colors text-white/70">Services</button>
+                <button onClick={() => scrollToSection('process')} className="hover:text-white transition-colors text-white/70">Process</button>
+                <button onClick={() => scrollToSection('outcomes')} className="hover:text-white transition-colors text-white/70">Outcomes</button>
+                <button onClick={() => scrollToSection('get-started')} className="hover:text-white transition-colors text-white/70">Get Started</button>
+                <button onClick={() => scrollToSection('who-we-are')} className="hover:text-white transition-colors text-white/70">Who We Are</button>
+                <button onClick={() => scrollToSection('why-work-with-us')} className="hover:text-white transition-colors text-white/70">Why Work With Us</button>
+                <button onClick={() => scrollToSection('faq')} className="hover:text-white transition-colors text-white/70">FAQ</button>
+              </nav>
+
+              {/* Desktop CTA */}
+              <div className="hidden lg:flex flex-shrink-0 w-48 justify-end">
+                <a href="mailto:contact@onelevelup.com" className="bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] px-5 py-2.5 rounded-full text-white font-semibold text-xs hover:shadow-lg hover:shadow-pink-500/30 transition-all whitespace-nowrap">
+                  Book Your Free Consultation
+                </a>
+              </div>
+
+              {/* Mobile Hamburger */}
+              <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden p-2 text-white/70 hover:text-white">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {menuOpen
+                    ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  }
+                </svg>
+              </button>
+            </div>
+
+            {/* Mobile Menu */}
+            {menuOpen && (
+              <div className="lg:hidden border-t border-white/5 bg-[#1F253D] px-6 py-4">
+                <nav className="flex flex-col space-y-3 text-sm text-white/70 mb-5">
+                  {[['what-we-solve','What We Solve'],['services','Services'],['process','Process'],['outcomes','Outcomes'],['get-started','Get Started'],['who-we-are','Who We Are'],['why-work-with-us','Why Work With Us'],['faq','FAQ']].map(([id,label]) => (
+                    <button key={id} onClick={() => { scrollToSection(id); setMenuOpen(false); }} className="text-left hover:text-white transition-colors">
+                      {label}
+                    </button>
+                  ))}
+                </nav>
+                <a href="mailto:contact@onelevelup.com" className="block bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] px-5 py-3 rounded-full text-white font-semibold text-sm text-center">
+                  Book Your Free Consultation
+                </a>
+              </div>
+            )}
+          </header>
+
+          {/* HERO */}
+          <section className="relative flex items-center justify-center px-6 pt-24 pb-16 overflow-hidden">
+            <div className="absolute top-20 left-0 w-72 h-72 bg-gradient-to-br from-pink-400/25 via-pink-500/15 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div className="max-w-5xl mx-auto text-center relative z-10">
+              <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">
+                Lead Digital Media <span className="bg-gradient-to-r from-[#f472b6] to-[#ec4899] bg-clip-text text-transparent">Strategically</span>
+              </h1>
+              <p className="text-lg md:text-2xl text-white/60 mb-10 max-w-4xl mx-auto leading-relaxed">
+                We help advertisers and agencies move from reactive execution to meaningful leadership → re-engineering digital media teams for efficiency, effectiveness, and long-term growth.
+              </p>
+              <a href="mailto:contact@onelevelup.com" className="inline-flex items-center bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] px-10 py-5 rounded-full text-white font-semibold text-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all">
+                Book Your Free Consultation
+              </a>
+            </div>
+          </section>
+
+          {/* WHAT WE SOLVE */}
+          <section id="what-we-solve" className="relative py-16 px-6 bg-[#2a3548] overflow-hidden">
+            <div className="absolute top-16 right-0 w-96 h-64 bg-gradient-to-l from-pink-400/20 via-pink-500/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="text-center mb-8">
+                <div className="inline-block px-6 py-2 rounded-full border border-white/10 text-white/50 text-lg">What We Solve</div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Are These Familiar?</h2>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-16">
+                <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all text-center">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  </div>
+                  <div className="text-xl text-white mb-4 font-semibold">"We are drowning in<br/>manual work"</div>
+                  <div className="text-base text-white/50">An "EFFICIENCY" pain point</div>
+                </div>
+                <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all text-center">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7l8-3 8 3-8 3-8-3zm0 5l8 3 8-3M4 17l8 3 8-3" /></svg>
+                  </div>
+                  <div className="text-xl text-white mb-4 font-semibold" style={{minHeight:'3.5rem'}}>"We can't show what's working or improve it"</div>
+                  <div className="text-base text-white/50">An "EFFECTIVENESS" pain point</div>
+                </div>
+                <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all text-center">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                  </div>
+                  <div className="text-xl text-white mb-4 font-semibold">"We need to lead strategically<br/>but don't know how"</div>
+                  <div className="text-base text-white/50">A "GROWTH" pain point</div>
+                </div>
+              </div>
+
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold mb-4">The cost of standing still is too high,</h3>
+                <p className="text-3xl font-bold mb-10">and every week you wait, you lose ground!</p>
+                <div className="text-3xl font-bold mb-12"><span className="text-[#f472b6]">~$53,000 / week</span></div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-10">
+                <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-8 text-center">
+                  <div className="text-xl font-bold text-white">600+ hours / year</div>
+                  <div className="text-base text-white/50 mt-4">lost to manual work</div>
+                </div>
+                <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-8 text-center">
+                  <div className="text-xl font-bold text-white">5-20% budget waste</div>
+                  <div className="text-base text-white/50 mt-4">from poor measurement and partner inefficiencies</div>
+                </div>
+                <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-8 text-center">
+                  <div className="text-xl font-bold text-white">42% burnout rate</div>
+                  <div className="text-base text-white/50 mt-4">from campaign-by-campaign execution</div>
+                </div>
+              </div>
+
+              <div className="text-center text-lg text-white/30 italic">
+                <p>Sources: Industry benchmarks: Gartner, PwC, ANA</p>
+                <p>Calculations: $100k average salary, team of 10, $10m budget =<br/>20% lost productivity + 12% error & rework + 30k per exit, then average costs / 52 weeks</p>
+              </div>
+            </div>
+          </section>
+
+          {/* SERVICES / WHAT WE DO */}
+          <section id="services" className="relative py-16 px-6 overflow-hidden">
+            <div className="absolute bottom-0 left-0 w-[500px] h-48 bg-gradient-to-r from-purple-400/20 via-pink-400/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="text-center mb-8">
+                <div className="inline-block px-6 py-2 rounded-full border border-white/10 text-white/50 text-lg">What We Do</div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">AI Strategically Used Across All Three Services</h2>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="bg-[#2a3548] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <h3 className="text-lg font-bold pt-2"><span className="underline underline-offset-4 decoration-[#f472b6]">EFFICIENCY</span></h3>
+                  </div>
+                  <p className="text-white font-semibold text-lg mb-3">Reclaim your time back</p>
+                  <p className="text-white/60 text-base">Review processes, remove friction, modernise systems</p>
+                </div>
+                <div className="bg-[#2a3548] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7l8-3 8 3-8 3-8-3zm0 5l8 3 8-3M4 17l8 3 8-3" /></svg>
+                    </div>
+                    <h3 className="text-lg font-bold pt-2"><span className="underline underline-offset-4 decoration-[#f472b6]">EFFECTIVENESS</span></h3>
+                  </div>
+                  <p className="text-white font-semibold text-lg mb-3">Raise your standards</p>
+                  <p className="text-white/60 text-base">Clarify what matters, build a purposeful measurement framework, optimise against real outcomes</p>
+                </div>
+                <div className="bg-[#2a3548] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                    </div>
+                    <h3 className="text-lg font-bold pt-2"><span className="underline underline-offset-4 decoration-[#f472b6]">GROWTH</span></h3>
+                  </div>
+                  <p className="text-white font-semibold text-lg mb-3">Reinvent your competitive edge</p>
+                  <p className="text-white/60 text-base">Design a tailored maturity roadmap aligned to commercial priorities and future capability</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* PROCESS */}
+          <section id="process" className="relative py-16 px-6 bg-[#2a3548] overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-80 bg-gradient-to-bl from-pink-400/20 via-purple-400/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="text-center mb-8">
+                <div className="inline-block px-6 py-2 rounded-full border border-white/10 text-white/50 text-lg">How We Do It</div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">2/4-Week Sprint</h2>
+
+              <div className="relative flex items-center justify-between max-w-5xl mx-auto mb-16 px-4">
+                <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2" style={{ zIndex: 0 }}>
+                  <svg className="w-full h-8" viewBox="0 0 100 20" preserveAspectRatio="none">
+                    <path d="M0 10 L97 10 M97 10 L90 5 M97 10 L90 15" stroke="white" strokeWidth="2" fill="none"/>
+                  </svg>
+                </div>
+                <div className="flex flex-col items-center relative" style={{ zIndex: 2 }}>
+                  <div className="w-24 h-24 rounded-full bg-[#1F253D] flex items-center justify-center mb-6 border-4 border-[#2a3548]">
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">Discovery</h3>
+                  <p className="text-center text-white/70 text-xl max-w-[180px]">Identify your biggest pain point</p>
+                </div>
+                <div className="flex flex-col items-center relative" style={{ zIndex: 2 }}>
+                  <div className="w-24 h-24 rounded-full bg-[#1F253D] flex items-center justify-center mb-6 border-4 border-[#2a3548]">
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" strokeWidth={2} /><circle cx="12" cy="12" r="7" strokeWidth={2} /><circle cx="12" cy="12" r="10" strokeWidth={2} /></svg>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">Scope</h3>
+                  <p className="text-center text-white/70 text-xl max-w-[180px]">Approve proposal and solutions</p>
+                </div>
+                <div className="flex flex-col items-center relative" style={{ zIndex: 2 }}>
+                  <div className="w-24 h-24 rounded-full bg-[#1F253D] flex items-center justify-center mb-6 border-4 border-[#2a3548]">
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">Implementation</h3>
+                  <p className="text-center text-white/70 text-xl max-w-[180px]">Apply ready-to-use playbooks</p>
+                </div>
+                <div className="flex flex-col items-center relative" style={{ zIndex: 2 }}>
+                  <div className="w-24 h-24 rounded-full bg-[#1F253D] flex items-center justify-center mb-6 border-4 border-[#2a3548]">
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"/><polyline points="16 7 21 7 21 12" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">Measurement</h3>
+                  <p className="text-center text-white/70 text-xl max-w-[180px]">Assess impact and document</p>
+                </div>
+              </div>
+              <div className="text-center text-lg text-white/30 italic">Timelines vary by project</div>
+            </div>
+          </section>
+
+          {/* OUTCOMES */}
+          <section id="outcomes" className="relative py-16 px-6 overflow-hidden">
+            <div className="absolute bottom-0 left-0 w-80 h-56 bg-gradient-to-tr from-pink-400/20 via-pink-500/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="text-center mb-8">
+                <div className="inline-block px-6 py-2 rounded-full border border-white/10 text-white/50 text-lg">What We Deliver</div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Expected Outcomes</h2>
+
+              <div className="grid md:grid-cols-3 gap-8 mb-10">
+                <div className="bg-[#2a3548] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <h3 className="text-lg font-bold pt-2"><span className="underline underline-offset-4 decoration-[#f472b6]">EFFICIENCY</span></h3>
+                  </div>
+                  <p className="text-white font-semibold text-lg mb-3">5-15 hours saved per week</p>
+                  <p className="text-white/60 text-base">from automation and process improvement</p>
+                </div>
+                <div className="bg-[#2a3548] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7l8-3 8 3-8 3-8-3zm0 5l8 3 8-3M4 17l8 3 8-3" /></svg>
+                    </div>
+                    <h3 className="text-lg font-bold pt-2"><span className="underline underline-offset-4 decoration-[#f472b6]">EFFECTIVENESS</span></h3>
+                  </div>
+                  <p className="text-white font-semibold text-lg mb-3">5-20% budget saved</p>
+                  <p className="text-white/60 text-base">from fixing what's outdated and optimising measurement</p>
+                </div>
+                <div className="bg-[#2a3548] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                    </div>
+                    <h3 className="text-lg font-bold pt-2"><span className="underline underline-offset-4 decoration-[#f472b6]">GROWTH</span></h3>
+                  </div>
+                  <p className="text-white font-semibold text-lg mb-3">5-15% incremental revenue</p>
+                  <p className="text-white/60 text-base">from high-value strategic innovative maturity work</p>
+                </div>
+              </div>
+              <div className="text-center text-lg text-white/30 italic">Outcomes vary by project</div>
+            </div>
+          </section>
+
+          {/* GET STARTED */}
+          <section id="get-started" className="relative py-16 px-6 bg-[#2a3548] overflow-hidden">
+            <div className="absolute top-0 right-0 w-[450px] h-44 bg-gradient-to-l from-purple-400/20 via-pink-400/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div className="max-w-4xl mx-auto text-center relative z-10">
+              <div className="text-center mb-8">
+                <div className="inline-block px-6 py-2 rounded-full border border-white/10 text-white/50 text-lg">How To Get Started</div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Book Your Free <span className="bg-gradient-to-r from-[#f472b6] to-[#ec4899] bg-clip-text text-transparent">Consultation</span></h2>
+              <p className="text-xl text-white/60 mb-2">We'll discuss your vision & identify your biggest pain point.</p>
+              <p className="text-xl text-white/60 mb-10">Let's build your maturity ONE brick at the time.</p>
+              <div className="flex flex-wrap items-center justify-center gap-6 mb-10 text-sm text-white/70">
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-[#f472b6]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                  <span>Free 30-minute strategy session</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-[#f472b6]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                  <span>Custom roadmap for your project</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-[#f472b6]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                  <span>No obligations, no pressure</span>
+                </div>
+              </div>
+              <a href="mailto:contact@onelevelup.com" className="inline-flex items-center bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] px-12 py-6 rounded-full text-white font-semibold text-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all mb-6">Book Your Free Consultation</a>
+              <div className="text-lg text-white flex items-center justify-center">🔥 Only 3 spots left this month</div>
+            </div>
+          </section>
+
+          {/* WHO WE ARE */}
+          <section id="who-we-are" className="relative py-16 px-6 overflow-hidden">
+            <div className="absolute top-8 left-0 w-60 h-96 bg-gradient-to-r from-pink-400/20 via-purple-400/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="text-center mb-8">
+                <div className="inline-block px-6 py-2 rounded-full border border-white/10 text-white/50 text-lg">Who We Are</div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="rounded-3xl overflow-hidden border border-white/5">
+                  <img src={lozPhoto} alt="Loz" className="w-full h-auto" />
+                </div>
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-8 leading-snug">
+                    Experienced Digital Media Strategist<br/>&amp; AI Enthusiast
+                  </h2>
+                  <p className="text-xl text-white/60 mb-8 leading-relaxed">
+                    Led by Loz: Twenty years of navigating the complex ecosystems of major holding companies, mastering the transition from hands-on operational activation to high-level strategic leadership. My expertise spans the full digital spectrum: Search, SEO, Social, and Programmatic, giving me a holistic view of how media teams truly scale.
+                  </p>
+                  <div className="space-y-4">
+                    <h4 className="text-2xl font-bold mb-4">Proven track record</h4>
+                    <ul className="space-y-3 text-lg text-white/60">
+                      <li className="flex items-start">
+                        <svg className="w-5 h-5 text-[#f472b6] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                        Finalist B&T Women Leading Tech 2025
+                      </li>
+                      <li className="flex items-start">
+                        <svg className="w-5 h-5 text-[#f472b6] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                        Member of IAB AI working group 2025
+                      </li>
+                      <li className="flex items-start">
+                        <svg className="w-5 h-5 text-[#f472b6] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                        Won Google's "Best Use of AI" award 2024
+                      </li>
+                      <li className="flex items-start">
+                        <svg className="w-5 h-5 text-[#f472b6] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                        Shortlisted Mumbrella "data-driven marketing" award 2022
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* WHY WORK WITH US */}
+          <section id="why-work-with-us" className="relative py-16 px-6 bg-[#2a3548] overflow-hidden">
+            <div className="absolute bottom-0 right-0 w-[420px] h-52 bg-gradient-to-tl from-pink-400/20 via-purple-500/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="text-center mb-8">
+                <div className="inline-block px-6 py-2 rounded-full border border-white/10 text-white/50 text-lg">Why Work With Us</div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Strategic Partnership. Built for Your Success.</h2>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all text-center">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                  </div>
+                  <h3 className="text-xl font-bold mb-4">Zero Competition</h3>
+                  <p className="text-white/60 text-base">As a high-level extension of your media team, we fill expertise gaps and build maturity so your talents can focus on what they do best.</p>
+                </div>
+                <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all text-center">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                  </div>
+                  <h3 className="text-xl font-bold mb-4">Radical Independence</h3>
+                  <p className="text-white/60 text-base">We provide 100% unbiased advocacy, remaining entirely free from the influence of specific agencies, publishers, or tech vendor incentives.</p>
+                </div>
+                <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all text-center">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 14a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zm10-10a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V9zm0 10a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1v-2z" /></svg>
+                  </div>
+                  <h3 className="text-xl font-bold mb-4">Flexible Engagement</h3>
+                  <p className="text-white/60 text-base">We adapt to your specific needs through retainer-based advisory, project-specific maturity work, or value-driven partnership negotiations.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section id="faq" className="relative py-16 px-6 overflow-hidden">
+            <div className="absolute top-0 left-0 w-72 h-60 bg-gradient-to-br from-purple-400/20 via-pink-400/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div className="max-w-4xl mx-auto relative z-10">
+              <div className="text-center mb-8">
+                <div className="inline-block px-6 py-2 rounded-full border border-white/10 text-white/50 text-lg">FAQ</div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Questions?</h2>
+              <h3 className="text-2xl md:text-3xl font-bold mb-12 text-center">
+                <span className="bg-gradient-to-r from-[#f472b6] to-[#ec4899] bg-clip-text text-transparent">We've Got Answers</span>
+              </h3>
+              <div className="bg-[#1F253D] border border-white/5 rounded-2xl overflow-hidden mb-6">
+                <button onClick={() => setOpenFaq(!openFaq)} className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-white/5 transition-colors">
+                  <span className="text-xl font-semibold">{openFaq ? 'Hide FAQs' : 'Show FAQs'}</span>
+                  <svg className={`w-6 h-6 transition-transform ${openFaq ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+              {openFaq && (
+                <div className="space-y-6">
+                  <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-6">
+                    <h4 className="text-lg font-semibold mb-3">Who is this for?</h4>
+                    <p className="text-white/60">It's designed for mid-sized brands and agencies with $10–50m media spend who want structure without bureaucracy. Buying-side teams considering in-housing (video, audio, display, OOH), teams already in-house looking to scale, small agencies lacking time to be proactive, and publishers who want to better align with what advertisers actually value.</p>
+                  </div>
+                  <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-6">
+                    <h4 className="text-lg font-semibold mb-3">How do I know if we're "mature" enough for this?</h4>
+                    <p className="text-white/60">We start wherever you are. What matters isn't perfection — it's commitment to implement validated solutions and reinvest time saved into higher-value strategic work.</p>
+                  </div>
+                  <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-6">
+                    <h4 className="text-lg font-semibold mb-3">What kind of results can we realistically expect?</h4>
+                    <p className="text-white/60">Outcomes depend on your bottleneck and scope. Typical impact includes hours saved per week, reduced budget waste, clearer decision-making through structured scorecards, and stronger partner leverage.</p>
+                  </div>
+                  <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-6">
+                    <h4 className="text-lg font-semibold mb-3">Do we need new tools or expensive software?</h4>
+                    <p className="text-white/60">Not necessarily. Most gains come from better structure, cleaner measurement, clearer operating models, and smarter use of what you already have.</p>
+                  </div>
+                  <div className="bg-[#1F253D] border border-white/5 rounded-2xl p-6">
+                    <h4 className="text-lg font-semibold mb-3">Will this disrupt our current agency relationships?</h4>
+                    <p className="text-white/60">No — unless they're underperforming. The goal is clarity and leverage: stronger briefs, better measurement, cleaner accountability, and smarter commercial conversations.</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* FOOTER */}
+          <footer className="border-t border-white/5 py-6 px-6 bg-[#1F253D]">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex items-center justify-between">
+                {/* Logo - same width as header logo column */}
+                <div className="flex items-center flex-shrink-0 w-48">
+                  <img src={logoSrc} alt="One Level Up" className="h-16 w-auto" />
+                </div>
+
+                {/* Nav - same structure as header nav */}
+                <nav className="flex items-center space-x-6 text-sm font-medium flex-1 justify-center text-white/60">
+                  <button onClick={() => scrollToSection('what-we-solve')} className="hover:text-white transition-colors">What We Solve</button>
+                  <button onClick={() => scrollToSection('services')} className="hover:text-white transition-colors">Services</button>
+                  <button onClick={() => scrollToSection('process')} className="hover:text-white transition-colors">Process</button>
+                  <button onClick={() => scrollToSection('outcomes')} className="hover:text-white transition-colors">Outcomes</button>
+                  <button onClick={() => scrollToSection('get-started')} className="hover:text-white transition-colors">Get Started</button>
+                  <button onClick={() => scrollToSection('who-we-are')} className="hover:text-white transition-colors">Who We Are</button>
+                  <button onClick={() => scrollToSection('why-work-with-us')} className="hover:text-white transition-colors">Why Work With Us</button>
+                  <button onClick={() => scrollToSection('faq')} className="hover:text-white transition-colors">FAQ</button>
+                </nav>
+
+                {/* Social links - same width as header CTA column */}
+                <div className="flex-shrink-0 w-48 flex items-center justify-end space-x-6">
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#f472b6] transition-colors text-sm">LinkedIn</a>
+                  <a href="mailto:contact@onelevelup.com" className="text-white/40 hover:text-[#f472b6] transition-colors text-sm">Email</a>
+                </div>
+              </div>
+              <div className="text-center text-white/40 text-sm mt-6">© 2026 One Level Up. All rights reserved.</div>
+            </div>
+          </footer>
+
+        </div>
+      );
+    }
+
+    ReactDOM.render(<OneLevelUpSite />, document.getElementById('root'));
+  </script>
+</body>
+</html>
