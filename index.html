@@ -11,6 +11,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  #root { width: 100%; }
+  /* Stops embedded pages creating their own scrollbars */
+  iframe { max-width: 100%; }
+</style>
+
   <div id="root"></div>
   <script type="text/babel">
     const { useState } = React;
@@ -26,7 +39,7 @@
       };
 
       return (
-        <div className="min-h-screen bg-[#1F253D] text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div className="min-h-screen w-full overflow-x-hidden bg-[#1F253D] text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
 
           {/* HEADER */}
           <header className="sticky top-0 z-50 bg-[#1F253D]/95 backdrop-blur-sm border-b border-white/5">
