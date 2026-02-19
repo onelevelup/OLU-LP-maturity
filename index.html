@@ -83,7 +83,8 @@
             {menuOpen && (
               <div className="lg:hidden border-t border-white/5 bg-[#1F253D] px-6 py-4">
                 <nav className="flex flex-col space-y-3 text-sm text-white/70 mb-5">
-                  {[['what-we-solve','What We Solve'],['services','Services'],['process','Process'],['outcomes','Outcomes'],['get-started','Get Started'],['who-we-are','Who We Are'],['why-work-with-us','Why Work With Us'],['faq','FAQ']].map(([id,label]) => (
+                  {[['what-we-solve','What We Solve'], ['services','Services'], ['get-started','Get Started']].map(([id,label]) => (
+
                     <button key={id} onClick={() => { scrollToSection(id); setMenuOpen(false); }} className="text-left hover:text-white transition-colors">
                       {label}
                     </button>
